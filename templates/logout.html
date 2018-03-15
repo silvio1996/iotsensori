@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'home' %}">Gestione Sensori</a>
+        </li>
+        <li class="breadcrumb-item active">Logout</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <center>
+    <br />
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-primary">Arrivederci, alla prossima!</h1>
+                    <p>Sei stato disconnesso correttamente dal sistema.
+                        <br/>
+                        Puoi effettuare nuovamente il <a
+                                href="{% url 'login' %}">login</a> con un altro account !
+                        <br>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </center>
+{% endblock %}

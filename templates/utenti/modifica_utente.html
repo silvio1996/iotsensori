@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load myfilters %}
+
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'home' %}">Gestione Sensori</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'utenti' %}">Utenti</a>
+        </li>
+        <li class="breadcrumb-item active">Modifica Utente</li>
+        <li class="breadcrumb-item active">{{ utente.username }}</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <center>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    {% include 'impianti/alert-impianto.html' %}
+                    <h1 class="text-primary">Modifica Utente</h1>
+                    <p>Modifica le caratteristiche dell'utente.</p>
+                    <div class="col-md-8 col-md-offset-2">
+                        <form id="login-form" method="post"
+                              action="{% url 'modifica_utente' %}?id={{ utente.id }}">
+                            {% csrf_token %}
+                            <table class="table">
+                                <tr>
+                                    <td><label for="id_username">Username:</label></td>
+                                    <td>{{ form.username|addcss:'form-control' }}</td>
+                                    <td><span style="font-size: small" class="helptext"><ul><li>Obbligatorio. 150 caratteri o meno.<br/>Solo lettere, cifre e @/./+/-/_</li></ul></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="id_first_name">Nome:</label></td>
+                                    <td>{{ form.first_name|addcss:'form-control' }}</td>
+                                    <td><span style="font-size: small" class="helptext"><ul><li>Inserisci il nome reale dell'utente.</li></ul></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="id_last_name">Cognome:</label></td>
+                                    <td>{{ form.last_name|addcss:'form-control' }}</td>
+                                    <td><span style="font-size: small" class="helptext"><ul><li>Inserisci il cognome reale dell'utente.</li></ul></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="id_sesso">Sesso:</label></td>
+                                    <td>{{ form.sesso|addcss:'form-control' }}</td>
+                                    <td><span style="font-size: small" class="helptext"><ul><li>Inserisci il sesso dell'utente..</li></ul></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="id_data_nascita">Data di Nascita:</label></td>
+                                    <td>
+                                        <input id="id_data_nascita" name="data_nascita" data-provide="datepicker"
+                                               class="form-control datepicker" data-date-format="mm/dd/yyyy"
+                                               value="{{ data_n_format }}" required>
+                                    </td>
+                                    <td><span style="font-size: small" class="helptext"><ul><li>Inserisci la data di nascita reale dell'utente.</li></ul></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="id_email">Email:</label></td>
+                                    <td>{{ form.email|addcss:'form-control' }}</td>
+                                    <td><span style="font-size: small" class="helptext"><ul><li>Inserisci un indirizzo email valido.</li></ul></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="id_city">Citt&agrave;:</label></td>
+                                    <td>{{ form.city|addcss:'form-control' }}</td>
+                                    <td><span style="font-size: small" class="helptext"><ul><li>Inserisci la citt&agrave; di residenza.</li></ul></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="id_address">Indirizzo:</label></td>
+                                    <td>{{ form.address|addcss:'form-control' }}</td>
+                                    <td><span style="font-size: small" class="helptext"><ul><li>Inserisci l'indirizzo di residenza.</li></ul></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="id_phone">Telefono:</label></td>
+                                    <td>{{ form.phone|addcss:'form-control' }}</td>
+                                    <td><span style="font-size: small" class="helptext"><ul><li>Inserisci il numero di telefono o cellulare.</li></ul></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="id_is_staff">Tipo Utente:</label></td>
+                                    <td>
+                                        <select name="is_staff" class="form-control" required id="id_is_staff">
+                                            {% if utente.is_staff %}
+                                                <option value="1" selected>Staff</option>
+                                                <option value="0">Cliente</option>
+                                            {% else %}
+                                                <option value="0" selected>Cliente</option>
+                                                <option value="1">Staff</option>
+                                            {% endif %}
+                                        </select>
+                                    </td>
+                                    <td><span style="font-size: small" class="helptext"><ul><li>Stabilisce i privilegi dell'utente.</li></ul></span>
+                                    </td>
+                                </tr>
+                            </table>
+                            {% if form.errors %}
+                                <p style="font-size: x-small" class="badge badge-danger">
+                                    Dati non validi. Riprova!
+                                </p>
+                                <br/>
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-danger">
+                                        <strong>{{ error|escape }}</strong>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                            <input type="submit" value="Modifica"
+                                   class="btn btn-primary pull-right"/>
+                            <input type="hidden" name="next" value="{{ next }}"/>
+                        </form>
+                        <br/><br/>
+                        <a href="{% url 'sensori' %}" class="btn btn-light">Torna indietro</a>
+                        <br/><br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+{% endblock %}
+
+{% block custom_js %}
+    <script>
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'it'
+        });
+    </script>
+    <noscript>Il tuo browser non supporta JavaScript!</noscript>
+{% endblock %}

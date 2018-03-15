@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'home' %}">Gestione Sensori</a>
+        </li>
+        <li class="breadcrumb-item"><a href="{% url 'sensori' %}">Sensori</a></li>
+        <li class="breadcrumb-item active">Eliminati</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <center>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    {% include 'impianti/alert-impianto.html' %}
+                    <h1 class="text-primary">Sensori Eliminati Logicamente</h1>
+                    <p>Qui sotto sono presenti tutti i sensori eliminati logicamente.
+                        <br/>Puoi quindi ripristinarli o eliminarli fisicamente. </p>
+                    <form id="form-list-client">
+                        <table id="dataTable" class="table table-bordered"
+                               style="align-content: center; text-align: center">
+                            <thead>
+                            <tr>
+                                <th>ID Sensore</th>
+                                <th>Tipo</th>
+                                <th>Marca</th>
+                                <th>Azioni</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for sensore in sensori_eliminati %}
+                                <tr>
+                                    <td>{{ sensore.id }}</td>
+                                    <td>{{ sensore.tipo }}</td>
+                                    <td>{{ sensore.marca }}</td>
+                                    <td>
+                                        <a id="confermaLink" href="{% url 'ripristina_sensore' %}?id_sensore={{ sensore.id }}"
+                                           class="btn btn-primary btn-sm text-light">
+                                            Ripristina
+                                        </a>
+                                        <a id="confermaLink" href="{% url 'elimina_sensore_fisicamente' %}?id_sensore={{ sensore.id }}"
+                                           class="btn btn-danger btn-sm text-light">
+                                            Elimina
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <div class="pull-right">
+                            <button id="id_refresh_page" class="btn btn-light btn-default">
+                                <img src="{% static 'img/refresh.png' %}"><br/>Aggiorna
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br/>
+    </center>
+{% endblock %}
+
+<script type="text/javascript">
+    $(document).on("click", ".id_refresh_page", function () {
+        location.reload(true);
+    });
+</script>
+<noscript>Il tuo browser non supporta JavaScript!</noscript>

@@ -1,0 +1,11 @@
+/.idea/
+/GestioneSensori/migrations/
+/connection.cnf
+!/GestioneSensori/settings.py
+*.pyc
+*.swp
+*.DS_Store
+/htmlcov
+/.pytest_cache
+/.DS_Store
+/.coverage

@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'home' %}">Gestione Sensori</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'utenti' %}">Utenti</a>
+        </li>
+        <li class="breadcrumb-item active">Dettagli Utente</li>
+        <li class="breadcrumb-item active">{{ utente.username }}</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <center>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    {% include 'impianti/alert-impianto.html' %}
+                    <h1 class="text-primary">Dettagli Utente</h1>
+                    <p>Qui sotto sono mostrate tutte le informazioni relative all'utente {{ utente.username }}.</p>
+                    <div class="col-md-6 col-md-offset-3">
+                        <table class="table table-bordered table-condensed table-hover"
+                               style="align-content: center; text-align: center">
+                            <thead>
+                            <tr>
+                                <td><b>Attributo</b></td>
+                                <td><b>Valore</b></td>
+                            </tr>
+
+                            </thead>
+                            <tbody id="form-list-client-body">
+                            <tr>
+                                <td>Username</td>
+                                <td>{{ utente.username }}</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{{ utente.email }}</td>
+                            </tr>
+                            <tr>
+                                <td>Nome</td>
+                                <td>{{ utente.first_name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Cognome</td>
+                                <td>{{ utente.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Sesso</td>
+                                <td>
+                                    {% if utente.sesso == 'M' %}
+                                        Maschio
+                                    {% elif utente.sesso == 'F' %}
+                                        Femmina
+                                    {% else %}
+                                        Altro
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Data di Nascita</td>
+                                <td>{{ utente.data_nascita }}</td>
+                            </tr>
+                            <tr>
+                                <td>Citt&agrave;</td>
+                                <td>{{ utente.city }}</td>
+                            </tr>
+                            <tr>
+                                <td>Indirizzo</td>
+                                <td>{{ utente.address }}</td>
+                            </tr>
+                            <tr>
+                                <td>Telefono</td>
+                                <td>{{ utente.phone }}</td>
+                            </tr>
+                            <tr>
+                                <td>Data Registrazione</td>
+                                <td>{{ utente.date_joined }}</td>
+                            </tr>
+                            <tr>
+                                <td>Ultimo Accesso</td>
+                                <td>{{ utente.last_login }}</td>
+                            </tr>
+                            <tr>
+                                <td>Auth Token</td>
+                                <td>
+                                    <span style="font-size: x-small">
+                                        {{ token }}
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <a href="{% url 'utenti' %}" class="btn btn-light">Torna indietro</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    </center>
+{% endblock %}

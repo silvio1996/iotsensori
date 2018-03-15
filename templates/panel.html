@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'home' %}">Gestione Sensori</a>
+        </li>
+        <li class="breadcrumb-item active">Preferiti</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <center>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    {% include 'impianti/alert-impianto.html' %}
+                    <h1 class="text-primary">Cosa vogliamo fare? XD</h1>
+                    <p>Scegli l&rsquo;opzione che desideri cliccando la relativa immagine.</p>
+                    <hr/>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="card mb-3" style="width: 22rem;">
+                                <div class="card-header">
+                                    <i class="fa fa-bookmark"></i> Accesso Rapido
+                                </div>
+                                <div class="card-body">
+                                    <table style="width: 100%;margin: 0 auto; text-align: center">
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'impianti' %}" class="btn btn-light btn-lg"
+                                                   role="button"
+                                                   style="width: 150px;"><img class="img-fluid"
+                                                                              src="{% static 'img/impianti.svg' %}"><br/>Impianti</a>
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg"
+                                                   role="button"
+                                                   style="width: 150px;"><img class="img-fluid"
+                                                                              src="{% static 'img/dashboard.svg' %}"><br/>Dashboard</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'sensori' %}" class="btn btn-light btn-lg" role="button"
+                                                   style="width: 150px;"><img class="img-fluid"
+                                                                              src="{% static 'img/sensori.svg' %}"><br/>Sensori</a>
+                                            </td>
+                                            {% if request.user.is_staff %}
+                                                <td>
+                                                    <a href="{% url 'utenti' %}" class="btn btn-light btn-lg"
+                                                       role="button"
+                                                       style="width: 150px;"><img class="img-fluid"
+                                                                                  src="{% static 'img/utenti.svg' %}"><br/>Utenti</a>
+                                                </td>
+                                            {% endif %}
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                            &nbsp;&nbsp;
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </center>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Gestione Sensori - IoT</title>
+    <!-- Bootstrap core CSS-->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.css' %}" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+    <link href="{% static 'css/datepicker.css' %}" rel="stylesheet">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+{% include 'navigation.html' %}
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        {% block breadcrumb %}{% endblock %}
+        <div class="row">
+            <div class="col-12 text-center">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+        <div class="container">
+            <div class="text-center">
+                <small>All Right Reserved&reg;, Gestione Sensori IoT - 2017.</small>
+                <br />
+                <a target="_blank" href="https://www.kiuwan.com/github/giampaoloflace/sensori_iot_py">
+                    <img src="https://www.kiuwan.com/github/giampaoloflace/sensori_iot_py/badges/quality.svg">
+                </a>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Login Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Accedi al tuo account</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form id="login-form" method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <p>Inserisci i dati che ti sono stati forniti dal nostro tecnico certificato IoT dopo
+                            l'installazione per accedere al centro di controllo di monitoraggio dei sensori presenti
+                            nel
+                            tuo impianto.
+                            <br>
+                        </p>
+
+
+                        <table class="table">
+                            <tr>
+                                <td><label for="id_username">Username</label></td>
+                                <td><input id="id_username" name="username"
+                                           type="text" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td><label for="id_password">Password</label></td>
+                                <td><input id="id_password" name="password"
+                                           type="password" class="form-control"></td>
+                            </tr>
+                        </table>
+                        {% if form.errors %}
+                            <p class="label label-danger">
+                                Il tuo username o password non corrispondono. Riprova!
+                            </p>
+                        {% endif %}
+                        <input type="hidden" name="next" value="{{ next }}"/>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Indietro</button>
+                        <input type="submit" value="Login" class="btn btn-primary pull-right"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.js' %}"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.js' %}"></script>
+    <noscript>Il tuo browser non supporta JavaScript!</noscript>
+    <script src="{% static 'vendor/chart.js/Chart.js' %}"></script>
+    <script src="{% static 'vendor/chart.js/Chart.bundle.js' %}"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static 'js/bootstrap-datepicker.it.min.js' %}"></script>
+    <script src="{% static 'js/sb-admin.js' %}"></script>
+    <script src="{% static 'js/sb-admin-datatables.js' %}"></script>
+    <script>
+        $('#confermaLink').click(function () {
+            if (!confirm('Sei sicuro di voler procedere?'))
+                return false;
+        });
+    </script>
+    <noscript>Il tuo browser non supporta JavaScript!</noscript>
+    {% block ajax %}{% endblock %}
+    {% block custom_js %}{% endblock %}
+
+</div>
+</body>
+
+</html>
